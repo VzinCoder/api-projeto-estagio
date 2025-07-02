@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -10,6 +11,7 @@ class BaseModel(models.Model):
         abstract = True 
 
 class Animal(BaseModel):
+    user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE, related_name='animals')
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)

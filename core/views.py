@@ -17,3 +17,6 @@ class EventViewSet(viewsets.ModelViewSet):
 class VaccineViewSet(viewsets.ModelViewSet):
     queryset  = Vaccine.objects.all()
     serializer_class = VaccineSerializer
+
+
+

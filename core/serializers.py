@@ -18,4 +18,12 @@ class AnimalSerializer(serializers.ModelSerializer):
     vaccines = VaccineSerializer(many=True, read_only=True)
     class Meta:
         model = Animal
-        fields = '__all__'
+        exclude = ['user']
+    
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        validated_data.pop('user', None)
+        return super().update(instance, validated_data)
