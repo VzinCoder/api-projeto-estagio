@@ -1,12 +1,12 @@
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.utils.timezone import now
 # Create your models here.
 
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=now)
     class Meta:
         abstract = True 
 
