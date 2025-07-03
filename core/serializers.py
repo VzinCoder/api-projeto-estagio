@@ -56,3 +56,13 @@ class AnimalUploadSerializer(serializers.Serializer):
 
 class SyncUploadRequestSerializer(serializers.Serializer):
     pets = AnimalUploadSerializer(many=True)
+
+class SyncDownloadRequestSerializer(serializers.Serializer):
+    last_synced_at = serializers.DateTimeField(
+        required=False,
+        help_text="Timestamp da última sincronização feita pelo app",
+    )
+
+class SyncDownloadResponseSerializer(serializers.Serializer):
+    pets = AnimalSerializer(many=True)
+    synced_at = serializers.DateTimeField()
