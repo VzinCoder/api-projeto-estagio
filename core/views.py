@@ -14,6 +14,8 @@ class AnimalViewSet(viewsets.ModelViewSet):
     queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
 
+    def get_queryset(self):
+        return Animal.objects.filter(user=self.request.user)
 
     def perform_update(self, serializer):
         serializer.save(updated_at=now())
@@ -24,11 +26,16 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
+    def get_queryset(self):
+        return Event.objects.filter(animal__user=self.request.user)
 
 @extend_schema(tags=['Vacinas'])
 class VaccineViewSet(viewsets.ModelViewSet):
     queryset  = Vaccine.objects.all()
     serializer_class = VaccineSerializer
+
+    def get_queryset(self):
+        return Vaccine.objects.filter(animal__user=self.request.user)
 
 
 @extend_schema(
